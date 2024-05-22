@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-05-22T16:27:23.530168" rpa="false" schemaversion="5">
+<suite id="s1" name="Customer Data Api" source="/home/rocha/PycharmProjects/customer data api">
+<suite id="s1-s1" name="Tests" source="/home/rocha/PycharmProjects/customer data api/Tests.robot">
+<kw name="Generate Bearer" owner="Utils" type="SETUP">
+<kw name="Run" owner="OperatingSystem">
+<msg time="2024-05-22T16:27:23.602308" level="INFO">Running command 'echo -n '{"alg": "none","typ": "JWT"}' | base64 2&gt;&amp;1'.</msg>
+<msg time="2024-05-22T16:27:23.603631" level="INFO">${token first part} = eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==</msg>
+<var>${token first part}</var>
+<arg>echo -n '{"alg": "none","typ": "JWT"}' | base64</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.601812" elapsed="0.001837"/>
+</kw>
+<kw name="Run" owner="OperatingSystem">
+<msg time="2024-05-22T16:27:23.604020" level="INFO">Running command 'echo -n '{"scope": "consents","client_id": "client12"}' | base64 2&gt;&amp;1'.</msg>
+<msg time="2024-05-22T16:27:23.605300" level="INFO">${token secnd part} = eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9</msg>
+<var>${token secnd part}</var>
+<arg>echo -n '{"scope": "consents","client_id": "client12"}' | base64</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.603732" elapsed="0.001592"/>
+</kw>
+<kw name="Fetch From Right" owner="String">
+<msg time="2024-05-22T16:27:23.605581" level="INFO">${token first part} = eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==</msg>
+<var>${token first part}</var>
+<arg>${token first part}</arg>
+<arg>${SPACE}</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.605416" elapsed="0.000184"/>
+</kw>
+<kw name="Fetch From Right" owner="String">
+<msg time="2024-05-22T16:27:23.605816" level="INFO">${token secnd part} = eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9</msg>
+<var>${token secnd part}</var>
+<arg>${token secnd part}</arg>
+<arg>${SPACE}</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.605686" elapsed="0.000144"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.606394" level="INFO">${valid bearer} = eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.</msg>
+<arg>${valid bearer}</arg>
+<arg>${token first part}.${token secnd part}.</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.605913" elapsed="0.000510"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.606955" level="INFO">${invalid bearer} = eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,</msg>
+<arg>${invalid bearer}</arg>
+<arg>${token first part},${token secnd part},</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.606496" elapsed="0.000485"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.601435" elapsed="0.005588"/>
+</kw>
+<test id="s1-s1-t1" name="Test01 - Try to create a consent permissions for ACCOUNTS_READ using a wrong bearer token" line="21">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.607567" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${invalid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.607336" elapsed="0.000248"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.612455" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,', 'Content-Length': '108'} 
+ body=b'"Create Dictionary data=Create Dictionary permissions=ACCOUNTS_READ expirationDateTime=2024-12-21T13:54:31Z"' 
+ </msg>
+<msg time="2024-05-22T16:27:23.612515" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '183'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.612589" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.607681" elapsed="0.004928"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.613093" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.612785" elapsed="0.000346"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Unauthorized</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.613253" elapsed="0.000318"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.607074" elapsed="0.006619"/>
+</test>
+<test id="s1-s1-t2" name="Test02 - Try to create a consent permissions for ACCOUNTS_READ not using a bearer token" line="28">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.614477" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': ''}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${empty}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.614161" elapsed="0.000333"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.616975" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': '', 'Content-Length': '108'} 
+ body=b'"Create Dictionary data=Create Dictionary permissions=ACCOUNTS_READ expirationDateTime=2024-12-21T13:54:31Z"' 
+ </msg>
+<msg time="2024-05-22T16:27:23.617009" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '183'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.617066" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.614604" elapsed="0.002478"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.617533" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.617249" elapsed="0.000321"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Unauthorized</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.617683" elapsed="0.000312"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.613885" elapsed="0.004222"/>
+</test>
+<test id="s1-s1-t3" name="Test03 - Try to create a consent permissions for ACCOUNTS_READ with the right authorization data" line="35">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.618725" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.618567" elapsed="0.000175"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.618971" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.618857" elapsed="0.000129"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.619239" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.619099" elapsed="0.000155"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.625628" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.625693" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:74ee712e-23f7-4b89-a3d3-5783f54e6e22","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.622Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:74ee712e-23f7-4b89-a3d3-5783f54e6e22"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.624533885}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.625800" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.619366" elapsed="0.006457"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.626487" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.626014" elapsed="0.000526"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.627104" level="INFO">Length is 45.</msg>
+<arg>${response.json()}[data][consentId]</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.626665" elapsed="0.000483"/>
+</kw>
+<kw name="Set Local Variable" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.627797" level="INFO">${valid consent id} = urn:bank:74ee712e-23f7-4b89-a3d3-5783f54e6e22</msg>
+<arg>${valid consent id}</arg>
+<arg>${response.json()}[data][consentId]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.627288" elapsed="0.000550"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.json()}[data][consentId]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.627972" elapsed="0.000470"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.618287" elapsed="0.010287"/>
+</test>
+<test id="s1-s1-t4" name="Test04 - Try to create a consent permissions for CREDIT_CARD_READ using a wrong bearer token" line="47">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.629365" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${invalid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.629147" elapsed="0.000241"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.632465" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,', 'Content-Length': '108'} 
+ body=b'"Create Dictionary data=Create Dictionary permissions=ACCOUNTS_READ expirationDateTime=2024-12-21T13:54:31Z"' 
+ </msg>
+<msg time="2024-05-22T16:27:23.632512" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '183'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.632652" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict cc read}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.629520" elapsed="0.003156"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.633285" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.632822" elapsed="0.000512"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Unauthorized</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.633460" elapsed="0.000459"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.628765" elapsed="0.005314"/>
+</test>
+<test id="s1-s1-t5" name="Test05 - Try to create a consent permissions for CREDIT_CARD_READ not using a bearer token" line="55">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.635088" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': ''}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${empty}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.634620" elapsed="0.000494"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.635397" level="INFO">${inner dict} = {'permissions': 'CREDIT_CARD_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=CREDIT_CARD_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.635247" elapsed="0.000173"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.635748" level="INFO">${data dict} = {'data': {'permissions': 'CREDIT_CARD_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.635550" elapsed="0.000221"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.638564" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': '', 'Content-Length': '108'} 
+ body=b'"Create Dictionary data=Create Dictionary permissions=ACCOUNTS_READ expirationDateTime=2024-12-21T13:54:31Z"' 
+ </msg>
+<msg time="2024-05-22T16:27:23.638614" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '183'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.638698" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict cc read}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.635891" elapsed="0.002829"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.639265" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.638865" elapsed="0.000447"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Unauthorized</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.639433" elapsed="0.000444"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.634260" elapsed="0.005745"/>
+</test>
+<test id="s1-s1-t6" name="Test06 - Try to create a consent permissions for CREDIT_CARD_READ with the right authorization data" line="65">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.640796" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.640571" elapsed="0.000250"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.641135" level="INFO">${inner dict cc read} = {'permissions': 'CREDIT_CARD_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict cc read}</var>
+<arg>permissions=CREDIT_CARD_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.640966" elapsed="0.000193"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.641518" level="INFO">${data dict cc read} = {'data': {'permissions': 'CREDIT_CARD_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict cc read}</var>
+<arg>data=${inner dict cc read}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.641307" elapsed="0.000234"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.648927" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '91'} 
+ body=b'{"data": {"permissions": "CREDIT_CARD_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.648998" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '441'} 
+ body={"data":{"consentId":"urn:bank:42356381-4d66-4fed-867d-582d868dcf51","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"CREDIT_CARD_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.644Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:42356381-4d66-4fed-867d-582d868dcf51"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.647683192}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.649114" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict cc read}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.641669" elapsed="0.007470"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.649872" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.649362" elapsed="0.000565"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.650507" level="INFO">Length is 45.</msg>
+<arg>${response.json()}[data][consentId]</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.650057" elapsed="0.000497"/>
+</kw>
+<kw name="Set Local Variable" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.651196" level="INFO">${valid consent id cc read} = urn:bank:42356381-4d66-4fed-867d-582d868dcf51</msg>
+<arg>${valid consent id cc read}</arg>
+<arg>${response.json()}[data][consentId]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.650691" elapsed="0.000544"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.640189" elapsed="0.011174"/>
+</test>
+<test id="s1-s1-t7" name="Test07 - Try to create a consent permissions for something different than CREDIT_CARD_READ or ACCOUNTS_READ with the right authorization data" line="75">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.652280" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.652055" elapsed="0.000247"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.652589" level="INFO">${inner dict cc read} = {'permissions': 'CREDIT_CARD_READs', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict cc read}</var>
+<arg>permissions=CREDIT_CARD_READs</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.652434" elapsed="0.000177"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.652933" level="INFO">${data dict cc read} = {'data': {'permissions': 'CREDIT_CARD_READs', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict cc read}</var>
+<arg>data=${inner dict cc read}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.652737" elapsed="0.000219"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.659853" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '92'} 
+ body=b'{"data": {"permissions": "CREDIT_CARD_READs", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.659908" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=500, reason=Internal Server Error 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '288'} 
+ body={"message":"Internal Server Error","_links":{"self":{"href":"/test-api/consents/v1/consents","templated":false}},"_embedded":{"errors":[{"message":"Internal Server Error: No enum constant org.example.domain.entities.EnumConsentPermissions.CREDIT_CARD_READs","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.660002" level="INFO">${response} = &lt;Response [500]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict cc read}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.653075" elapsed="0.006951"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.660633" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2024-05-22T16:27:23.660728" level="FAIL">500 != 400</msg>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2024-05-22T16:27:23.660194" elapsed="0.000615">500 != 400</status>
+</kw>
+<status status="FAIL" start="2024-05-22T16:27:23.651598" elapsed="0.009633">500 != 400</status>
+</test>
+<test id="s1-s1-t8" name="Test08 - Try to update a consent permissions for AUTHORISED with the right authorization data" line="83">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.662003" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.661786" elapsed="0.000240"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.662302" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.662153" elapsed="0.000169"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.662616" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.662441" elapsed="0.000196"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.669117" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.669190" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.665Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.668072035}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.669289" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.662746" elapsed="0.006565"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.669664" level="INFO">${inner-dict-accept-reject} = {'status': 'AUTHORISED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=AUTHORISED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.669491" elapsed="0.000192"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.669975" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'AUTHORISED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.669796" elapsed="0.000195"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.673320" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777 
+ path_url=/test-api/consents/v1/consents/urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '34'} 
+ body=b'{"data": {"status": "AUTHORISED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.673398" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777 
+ status=403, reason=Forbidden 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '223'} 
+ body={"message":"Forbidden","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:bb0e91af-8e25-434a-af6a-243c16cae777","templated":false}},"_embedded":{"errors":[{"message":"Forbidden","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.673529" level="INFO">${response} = &lt;Response [403]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.670077" elapsed="0.003475"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.674033" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2024-05-22T16:27:23.674101" level="FAIL">403 != 400</msg>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2024-05-22T16:27:23.673678" elapsed="0.000469">403 != 400</status>
+</kw>
+<status status="FAIL" start="2024-05-22T16:27:23.661423" elapsed="0.012852">403 != 400</status>
+</test>
+<test id="s1-s1-t9" name="Test09 - Try to update a consent permissions for AUTHORISED with the wrong authorization data" line="96">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.674826" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.674672" elapsed="0.000176"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.675054" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.674944" elapsed="0.000126"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.675292" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.675159" elapsed="0.000149"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.680470" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.680516" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.677Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.679672654}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.680594" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.675392" elapsed="0.005222"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.680957" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${invalid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.680756" elapsed="0.000220"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.681192" level="INFO">${inner-dict-accept-reject} = {'status': 'AUTHORISED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=AUTHORISED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.681074" elapsed="0.000134"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.681445" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'AUTHORISED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.681301" elapsed="0.000159"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.684289" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9 
+ path_url=/test-api/consents/v1/consents/urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,', 'Content-Length': '34'} 
+ body=b'{"data": {"status": "AUTHORISED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.684331" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '229'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:87ff9cb1-46a7-4389-9c59-9bb9d7444ac9","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.684456" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.681550" elapsed="0.002929"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.685033" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.684676" elapsed="0.000398"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.674419" elapsed="0.010775"/>
+</test>
+<test id="s1-s1-t10" name="Test10 - Try to update a consent permissions for AUTHORISED not using a bearer token" line="109">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.685877" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.685722" elapsed="0.000172"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.686107" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.685990" elapsed="0.000132"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.686452" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.686217" elapsed="0.000252"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.691505" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.691550" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.688Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.690728523}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.691679" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.686557" elapsed="0.005143"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.692193" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer '}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${empty}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.691836" elapsed="0.000373"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.692411" level="INFO">${inner-dict-accept-reject} = {'status': 'AUTHORISED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=AUTHORISED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.692304" elapsed="0.000122"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.692654" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'AUTHORISED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.692513" elapsed="0.000156"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.695302" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55 
+ path_url=/test-api/consents/v1/consents/urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer ', 'Content-Length': '34'} 
+ body=b'{"data": {"status": "AUTHORISED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.695343" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '229'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:9b9d2418-92f3-4cc2-90c1-d558ec4eef55","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.695464" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.692752" elapsed="0.002735"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.695957" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.695612" elapsed="0.000382"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.685324" elapsed="0.010775"/>
+</test>
+<test id="s1-s1-t11" name="Test11 - Try to update a consent permissions for REJECTED with the right authorization data" line="122">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.696608" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.696456" elapsed="0.000168"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.696828" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.696718" elapsed="0.000125"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.697101" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.696962" elapsed="0.000155"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.702743" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.702785" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.699Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.701801204}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.702857" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.697212" elapsed="0.005663"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.703139" level="INFO">${inner-dict-accept-reject} = {'status': 'REJECTED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=REJECTED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.703004" elapsed="0.000153"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.703408" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'REJECTED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.703254" elapsed="0.000171"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.706150" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16 
+ path_url=/test-api/consents/v1/consents/urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '32'} 
+ body=b'{"data": {"status": "REJECTED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.706185" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16 
+ status=403, reason=Forbidden 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '223'} 
+ body={"message":"Forbidden","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:65d2272e-c1a7-427c-bf95-182bc9979d16","templated":false}},"_embedded":{"errors":[{"message":"Forbidden","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.706294" level="INFO">${response} = &lt;Response [403]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.703516" elapsed="0.002799"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.706727" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2024-05-22T16:27:23.706796" level="FAIL">403 != 400</msg>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2024-05-22T16:27:23.706425" elapsed="0.000420">403 != 400</status>
+</kw>
+<status status="FAIL" start="2024-05-22T16:27:23.696220" elapsed="0.010751">403 != 400</status>
+</test>
+<test id="s1-s1-t12" name="Test12 - Try to update a consent permissions for REJECTED with the wrong authorization data" line="135">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.707518" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.707358" elapsed="0.000178"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.707746" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.707634" elapsed="0.000128"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.707991" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.707854" elapsed="0.000153"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.713007" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.713051" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.710Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.712188240}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.713161" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.708093" elapsed="0.005107"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.713532" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${invalid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.713341" elapsed="0.000211"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.713792" level="INFO">${inner-dict-accept-reject} = {'status': 'REJECTED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=REJECTED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.713664" elapsed="0.000146"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.714068" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'REJECTED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.713917" elapsed="0.000166"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.716612" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb 
+ path_url=/test-api/consents/v1/consents/urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==,eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9,', 'Content-Length': '32'} 
+ body=b'{"data": {"status": "REJECTED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.716646" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '229'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:0d334bbe-7b48-4cf0-9641-0c04b5520bbb","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.716747" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.714167" elapsed="0.002599"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.717158" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.716869" elapsed="0.000344"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.707108" elapsed="0.010226"/>
+</test>
+<test id="s1-s1-t13" name="Test13 - Try to update a consent permissions for REJECTED not using a bearer token" line="148">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.717862" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${valid bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.717711" elapsed="0.000168"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.718080" level="INFO">${inner dict} = {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}</msg>
+<var>${inner dict}</var>
+<arg>permissions=ACCOUNTS_READ</arg>
+<arg>expirationDateTime=2024-12-21T13:54:31Z</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.717972" elapsed="0.000124"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.718316" level="INFO">${data dict} = {'data': {'permissions': 'ACCOUNTS_READ', 'expirationDateTime': '2024-12-21T13:54:31Z'}}</msg>
+<var>${data dict}</var>
+<arg>data=${inner dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.718185" elapsed="0.000146"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.723510" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ path_url=/test-api/consents/v1/consents 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiAibm9uZSIsInR5cCI6ICJKV1QifQ==.eyJzY29wZSI6ICJjb25zZW50cyIsImNsaWVudF9pZCI6ICJjbGllbnQxMiJ9.', 'Content-Length': '88'} 
+ body=b'{"data": {"permissions": "ACCOUNTS_READ", "expirationDateTime": "2024-12-21T13:54:31Z"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.723564" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents 
+ status=201, reason=Created 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '438'} 
+ body={"data":{"consentId":"urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f","clientId":"client12","status":"AWAITING_AUTHORISATION","permission":"ACCOUNTS_READ","expirationDatTime":"2024-12-21T13:54:31.000Z","creationDateTime":"2024-05-22T19:27:23.720Z"},"links":{"self":"localhost:8080/test-api/consents/v1/consents/urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f"},"meta":{"totalRecords":1,"totalPages":1,"requestDateTime":1716406043.722639532}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.723722" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data dict}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.718414" elapsed="0.005335"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.724499" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer '}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${empty}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.723943" elapsed="0.000581"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.724887" level="INFO">${inner-dict-accept-reject} = {'status': 'REJECTED'}</msg>
+<var>${inner-dict-accept-reject}</var>
+<arg>status=REJECTED</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.724720" elapsed="0.000192"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.725292" level="INFO">${outer-dict-accept-reject} = {'data': {'status': 'REJECTED'}}</msg>
+<var>${outer-dict-accept-reject}</var>
+<arg>data=${inner-dict-accept-reject}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.725055" elapsed="0.000259"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-22T16:27:23.729079" level="INFO">POST Request : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f 
+ path_url=/test-api/consents/v1/consents/urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f 
+ headers={'User-Agent': 'python-requests/2.32.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer ', 'Content-Length': '32'} 
+ body=b'{"data": {"status": "REJECTED"}}' 
+ </msg>
+<msg time="2024-05-22T16:27:23.729117" level="INFO">POST Response : url=http://127.0.0.1:8080/test-api/consents/v1/consents/urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 22 May 2024 19:27:23 GMT', 'Content-Type': 'application/json', 'content-length': '229'} 
+ body={"message":"Unauthorized","_links":{"self":{"href":"/test-api/consents/v1/consents/urn:bank:2bea9c08-deb3-448b-b6c2-9834527c567f","templated":false}},"_embedded":{"errors":[{"message":"Unauthorized","_links":{},"_embedded":{}}]}} 
+ </msg>
+<msg time="2024-05-22T16:27:23.729245" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${default url}/${response.json()}[data][consentId]</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${outer-dict-accept-reject}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.725446" elapsed="0.003821"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-05-22T16:27:23.729696" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-05-22T16:27:23.729387" elapsed="0.000350"/>
+</kw>
+<status status="PASS" start="2024-05-22T16:27:23.717478" elapsed="0.012381"/>
+</test>
+<status status="FAIL" start="2024-05-22T16:27:23.542537" elapsed="0.187633"/>
+</suite>
+<status status="FAIL" start="2024-05-22T16:27:23.530787" elapsed="0.199796"/>
+</suite>
+<statistics>
+<total>
+<stat pass="10" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="10" fail="3" skip="0" id="s1" name="Customer Data Api">Customer Data Api</stat>
+<stat pass="10" fail="3" skip="0" id="s1-s1" name="Tests">Customer Data Api.Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

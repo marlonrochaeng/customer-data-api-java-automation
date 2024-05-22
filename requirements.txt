@@ -1,0 +1,11 @@
+certifi==2024.2.2
+charset-normalizer==3.3.2
+idna==3.7
+oauthlib==3.2.2
+requests==2.32.1
+requests-oauthlib==2.0.0
+robotframework==7.0
+robotframework-dependencylibrary==4.0.1
+robotframework-extendedrequestslibrary==0.5.5
+robotframework-requests==0.9.7
+urllib3==2.2.1
