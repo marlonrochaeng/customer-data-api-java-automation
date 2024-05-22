@@ -11,7 +11,7 @@
 #### 2.2 Here is the download link: [PyCharm Download](https://www.jetbrains.com/pycharm/download/)
 
 ## 3. Clone the automation repository
-#### 3.1 Repository link: [www.linktorepo.com.br](www.linktorepo.com.br)
+#### 3.1 Repository link: [https://github.com/marlonrochaeng/customer-data-api-java-automation](https://github.com/marlonrochaeng/customer-data-api-java-automation)
 
 ## 4. In PyCharm, open the automation repository as a new project
 #### 4.1 In a terminal within PyCharm, at the project root, type the command `pip install -r requirements.txt` to promptly install all necessary libs
